@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@android:drawable/sym_def_app_icon"
+        android:label="MobilEQ"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.MOBLEQ">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MOBLEQ"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!-- 1. Widget: Tekli Limiter -->
+        <receiver
+            android:name=".LimiterWidgetProvider"
+            android:exported="true"
+            android:label="MobilEQ Limiter (1x1)">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_limiter_info" />
+        </receiver>
+
+        <!-- 2. Widget: Tekli On/Off -->
+        <receiver
+            android:name=".OnOffWidgetProvider"
+            android:exported="true"
+            android:label="MobilEQ On/Off (1x1)">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_onoff_info" />
+        </receiver>
+
+        <!-- 3. Widget: Geniş 4 Düğmeli Kart -->
+        <receiver
+            android:name=".FullControlWidgetProvider"
+            android:exported="true"
+            android:label="MobilEQ Geniş Panel (4x2)">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_full_info" />
+        </receiver>
+
+        <!-- 4. Widget: Kompakt 2 Düğmeli Kart -->
+        <receiver
+            android:name=".CompactControlWidgetProvider"
+            android:exported="true"
+            android:label="MobilEQ Kompakt Panel (2x2)">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_compact_info" />
+        </receiver>
+
+        <!-- Android Üst Hızlı Ayarlar Karesi (Quick Settings Tile) -->
+        <service
+            android:name=".MobilEqTileService"
+            android:exported="true"
+            android:icon="@android:drawable/ic_lock_silent_mode_off"
+            android:label="MobilEQ"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
+    </application>
+</manifest>
